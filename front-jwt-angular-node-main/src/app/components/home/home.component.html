@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Titulo Fijo sobre Carrusel</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <style>
+      .titulo-fijo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 20; /* Asegura que el título esté por encima del carrusel */
+        color: white; /* Ajusta el color del texto según sea necesario */
+        font-size: 24px; /* Ajusta el tamaño de fuente según sea necesario */
+      }
+    </style>
+  </head>
+  <body>
+    <app-navbar-home></app-navbar-home>
+
+    <div
+      id="carouselExampleAutoplaying"
+      class="carousel slide"
+      data-bs-ride="carousel"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img
+            src="/assets/img/traffic-7859033_1280(1).jpg"
+            class="d-block w-100"
+            alt="Imagen 1"
+          />
+        </div>
+        <div class="carousel-item">
+          <img
+            src="/assets/img/traffic-3612474_1280.jpg"
+            class="d-block w-100"
+            alt="Imagen 2"
+          />
+        </div>
+        <div class="carousel-item">
+          <img src="/assets/img/3.jpg" class="d-block w-100" alt="Imagen 3" />
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#carouselExampleAutoplaying"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Anterior</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#carouselExampleAutoplaying"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Siguiente</span>
+      </button>
+    </div>
+    <div class="titulo-fijo">
+      <h1>Gestion de Vehiculos</h1>
+      <p>Ofrecemos servicios de alta calidad...</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <section id="informacion">
+      <h2>Información de la Pagina</h2>
+      <p>Aquí va la información sobre la ubicación, historia y servicios.</p>
+    </section>
+
+    <section id="horarios">
+      <h2>Nuevos Vehiculos</h2>
+      <p>descubra los nuevos vehiculos de la empresa</p>
+    </section>
+
+    <section id="servicios">
+      <h2>Servicios y Amenidades</h2>
+      <p>Descubra nuestros servicios adicionales y amenidades.</p>
+    </section>
+
+    <section id="noticias">
+      <h2>Noticias y Actualizaciones</h2>
+      <p>
+        Manténgase informado con nuestras últimas noticias y actualizaciones.
+      </p>
+    </section>
+
+    <footer>
+      <p>
+        &copy; 2024 Sistema de Gestión de Flota de vehiculos . Todos los
+        derechos reservados.
+      </p>
+    </footer>
+  </body>
+</html>

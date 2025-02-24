@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Conductores</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .form-control,
+      .form-select {
+        border: 1px solid #ced4da !important;
+      }
+      .rounded-btn {
+        border-radius: 20px;
+      }
+      .card-body {
+        border: 1px solid #dee2e6 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <app-navbar></app-navbar>
+
+    <div class="container my-5">
+      <h1 class="text-center mb-4">Gestión de Conductores</h1>
+
+      <!-- Conductores -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Conductores</h2>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="wrapper">
+              <img
+                class="logo"
+                src="../../../assets/img/login.png"
+                alt="img login"
+              />
+              <h3>Agregar Conductor</h3>
+              <div class="form-floating mb-3 mt-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newDriver.nombre"
+                  class="form-control"
+                  placeholder="Ingrese nombre"
+                />
+                <label>Nombre</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newDriver.licencia"
+                  class="form-control"
+                  placeholder="Ingrese licencia"
+                />
+                <label>Licencia</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="email"
+                  [(ngModel)]="newDriver.correo"
+                  class="form-control"
+                  placeholder="Ingrese correo"
+                />
+                <label>Correo</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newDriver.contacto"
+                  class="form-control"
+                  placeholder="Ingrese contacto"
+                />
+                <label>Contacto</label>
+              </div>
+              <div class="d-grid gap-2 mb-3">
+                <button
+                  type="button"
+                  (click)="add()"
+                  class="btn btn-primary btn-lg"
+                >
+                  Agregar Conductor
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">nombre</th>
+                <th scope="col">licencia</th>
+                <th scope="col">correo</th>
+                <th scope="col">contacto</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dentro de la etiqueta <tbody> de tu tabla -->
+              <tr *ngFor="let driver of listDrivers; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ driver.nombre }}</td>
+                <td>{{ driver.licencia }}</td>
+                <td>{{ driver.correo }}</td>
+                <td>{{ driver.contacto }}</td>
+
+                <td>
+                  <button
+                    (click)="edit(driver)"
+                    class="btn btn-warning"
+                    *ngIf="!selectedDriver"
+                  >
+                    Editar {{ driver.id }}
+                  </button>
+                </td>
+
+                <td>
+                  <button class="btn btn-danger" (click)="delete(driver.id)">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="card mb-4">
+            <div class="card-body">
+              <!-- ... -->
+              <div class="row mb-3" *ngIf="selectedDriver">
+                <div class="col-md-6">
+                  <h3>Editar Conductor</h3>
+                  <form (ngSubmit)="saveEdits()">
+                    <div class="mb-3">
+                      <label for="nombre" class="form-label">Nombre</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nombre"
+                        [(ngModel)]="selectedDriver.nombre"
+                        placeholder="Ingrese el nombre"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="licencia" class="form-label">Licencia</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="licencia"
+                        [(ngModel)]="selectedDriver.licencia"
+                        placeholder="Ingrese la licencia"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="correo" class="form-label">Correo</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="correo"
+                        [(ngModel)]="selectedDriver.correo"
+                        placeholder="Ingrese el correo"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="contacto" class="form-label">Contacto</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="contacto"
+                        [(ngModel)]="selectedDriver.contacto"
+                        placeholder="Ingrese el contacto"
+                        required
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-btn">
+                      Guardar
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

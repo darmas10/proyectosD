@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Vehículos</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .form-control,
+      .form-select {
+        border: 1px solid #ced4da !important;
+      }
+      .rounded-btn {
+        border-radius: 20px;
+      }
+      .card-body {
+        border: 1px solid #dee2e6 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <app-navbar></app-navbar>
+
+    <div class="container my-5">
+      <h1 class="text-center mb-4">Gestión de Vehiculos</h1>
+
+      <!-- Conductores -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Vehiculos</h2>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="wrapper">
+              <img
+                class="logo"
+                src="../../../assets/img/login.png"
+                alt="img login"
+              />
+              <h3>Agregar Vehiculo</h3>
+              <div class="form-floating mb-3 mt-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newVehicle.matricula"
+                  class="form-control"
+                  placeholder="Ingrese matricula"
+                />
+                <label>Matricula</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newVehicle.marca"
+                  class="form-control"
+                  placeholder="Ingrese marca"
+                />
+                <label>Marca</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newVehicle.modelo"
+                  class="form-control"
+                  placeholder="Ingrese modelo"
+                />
+                <label>Modelo</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newVehicle.anyo"
+                  class="form-control"
+                  placeholder="Ingrese año"
+                />
+                <label>Año</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newVehicle.ubicacion"
+                  class="form-control"
+                  placeholder="Ingrese ubicacion"
+                />
+                <label>Ubicacion</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newVehicle.estado"
+                  class="form-control"
+                  placeholder="Ingrese estado"
+                />
+                <label>Estado</label>
+              </div>
+              <div class="d-grid gap-2 mb-3">
+                <button
+                  type="button"
+                  (click)="add()"
+                  class="btn btn-primary btn-lg"
+                >
+                  Agregar Vehiculo
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">matricula</th>
+                <th scope="col">marca</th>
+                <th scope="col">modelo</th>
+                <th scope="col">año</th>
+                <th scope="col">ubicacion</th>
+                <th scope="col">estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dentro de la etiqueta <tbody> de tu tabla -->
+              <tr *ngFor="let Vehiculo of listVehicles; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ Vehiculo.matricula }}</td>
+                <td>{{ Vehiculo.marca }}</td>
+                <td>{{ Vehiculo.modelo }}</td>
+                <td>{{ Vehiculo.anyo }}</td>
+                <td>{{ Vehiculo.ubicacion }}</td>
+                <td>{{ Vehiculo.estado }}</td>
+
+                <td>
+                  <button
+                    (click)="edit(Vehiculo)"
+                    class="btn btn-warning"
+                    *ngIf="!selectedVehicle"
+                  >
+                    Editar {{ Vehiculo.id }}
+                  </button>
+                </td>
+
+                <td>
+                  <button class="btn btn-danger" (click)="delete(Vehiculo.id)">
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="card mb-4">
+            <div class="card-body">
+              <!-- ... -->
+              <div class="row mb-3" *ngIf="selectedVehicle">
+                <div class="col-md-6">
+                  <h3>Editar Vehiculo</h3>
+                  <form (ngSubmit)="saveEdits()">
+                    <div class="mb-3">
+                      <label for="matricula" class="form-label"
+                        >Matricula</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="matricula"
+                        [(ngModel)]="selectedVehicle.matricula"
+                        placeholder="Ingrese la matricula"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Marca</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="marca"
+                        [(ngModel)]="selectedVehicle.marca"
+                        placeholder="Ingrese la marca"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="modelo" class="form-label">Modelo</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="modelo"
+                        [(ngModel)]="selectedVehicle.modelo"
+                        placeholder="Ingrese el modelo"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="año" class="form-label">Año</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="anno"
+                        [(ngModel)]="selectedVehicle.anyo"
+                        placeholder="Ingrese el año"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="ubicacion" class="form-label"
+                        >Ubicacion</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="ubicacion"
+                        [(ngModel)]="selectedVehicle.ubicacion"
+                        placeholder="Ingrese la ubicacion"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="estado" class="form-label">Estado</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="estado"
+                        [(ngModel)]="selectedVehicle.estado"
+                        placeholder="Ingrese el estado"
+                        required
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-btn">
+                      Guardar
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

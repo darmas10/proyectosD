@@ -1,0 +1,23 @@
+.carousel-item img {
+  max-width: 100%; /* Limita el ancho máximo de la imagen al 90% del contenedor */
+  height: auto; /* Mantiene la proporción de aspecto de la imagen */
+}
+.contenedor img {
+  width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+  height: 100%; /* Ajusta la altura de la imagen al 100% del contenedor */
+  object-fit: cover; /* Cubre el contenedor completamente, recortando si es necesario */
+}
+
+  .carousel-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white; /* Ajusta el color según tus necesidades */
+  }
+  .carousel-inner {
+    max-height: 600px; /* Establece la altura máxima del contenedor */
+    overflow: hidden; /* Oculta cualquier contenido que exceda la altura máxima */
+  }
+  

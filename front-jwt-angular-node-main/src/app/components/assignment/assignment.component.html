@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Asignaciones</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      .form-control,
+      .form-select {
+        border: 1px solid #ced4da !important;
+      }
+      .rounded-btn {
+        border-radius: 20px;
+      }
+      .card-body {
+        border: 1px solid #dee2e6 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <app-navbar></app-navbar>
+
+    <div class="container my-5">
+      <h1 class="text-center mb-4">Gestión de Asignaciones</h1>
+
+      <!-- Conductores -->
+      <div class="card mb-4">
+        <div class="card-header">
+          <h2>Asignaciones</h2>
+        </div>
+        <div class="card-body">
+          <div class="row mb-3">
+            <div class="wrapper">
+              <img
+                class="logo"
+                src="../../../assets/img/login.png"
+                alt="img login"
+              />
+              <h3>Agregar Asignacion</h3>
+              <div class="form-floating mb-3 mt-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newAssignment.conductor"
+                  class="form-control"
+                  placeholder="Ingrese Conductor"
+                />
+                <label>Conductor</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newAssignment.vehiculo"
+                  class="form-control"
+                  placeholder="Ingrese vehiculo"
+                />
+                <label>Vehiculo</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newAssignment.fecha_inicio"
+                  class="form-control"
+                  placeholder="Ingrese fecha_inicio"
+                />
+                <label>Fecha_inicio</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newAssignment.destino"
+                  class="form-control"
+                  placeholder="Ingrese destino"
+                />
+                <label>Destino</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newAssignment.distancia"
+                  class="form-control"
+                  placeholder="Ingrese distancia"
+                />
+                <label>Distancia</label>
+              </div>
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="newAssignment.estado"
+                  class="form-control"
+                  placeholder="Ingrese estado"
+                />
+                <label>Estado</label>
+              </div>
+              <div class="d-grid gap-2 mb-3">
+                <button
+                  type="button"
+                  (click)="add()"
+                  class="btn btn-primary btn-lg"
+                >
+                  Agregar Asignacion
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">conductor</th>
+                <th scope="col">vehiculo</th>
+                <th scope="col">fecha_inicio</th>
+                <th scope="col">destino</th>
+                <th scope="col">distancia</th>
+                <th scope="col">estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Dentro de la etiqueta <tbody> de tu tabla -->
+              <tr *ngFor="let Assignments of listAssignments; let i = index">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ Assignments.conductor }}</td>
+                <td>{{ Assignments.vehiculo }}</td>
+                <td>{{ Assignments.fecha_inicio }}</td>
+                <td>{{ Assignments.destino }}</td>
+                <td>{{ Assignments.distancia }}</td>
+                <td>{{ Assignments.estado }}</td>
+
+                <td>
+                  <button
+                    (click)="edit(Assignments)"
+                    class="btn btn-warning"
+                    *ngIf="!selectedAssignment"
+                  >
+                    Editar {{ Assignments.id }}
+                  </button>
+                </td>
+
+                <td>
+                  <button
+                    class="btn btn-danger"
+                    (click)="delete(Assignments.id)"
+                  >
+                    Eliminar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="card mb-4">
+            <div class="card-body">
+              <!-- ... -->
+              <div class="row mb-3" *ngIf="selectedAssignment">
+                <div class="col-md-6">
+                  <h3>Editar Vehiculo</h3>
+                  <form (ngSubmit)="saveEdits()">
+                    <div class="mb-3">
+                      <label for="conductor" class="form-label"
+                        >Conductor</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="conductor"
+                        [(ngModel)]="selectedAssignment.conductor"
+                        placeholder="Ingrese el conductor"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="marca" class="form-label">Vehiculo</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="vehiculo"
+                        [(ngModel)]="selectedAssignment.vehiculo"
+                        placeholder="Ingrese el vehiculo"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="modelo" class="form-label"
+                        >Fecha_inicio</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="fecha_inicio"
+                        [(ngModel)]="selectedAssignment.fecha_inicio"
+                        placeholder="Ingrese la fechade inicio"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="año" class="form-label">Destino</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="destino"
+                        [(ngModel)]="selectedAssignment.destino"
+                        placeholder="Ingrese el destino"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="ubicacion" class="form-label"
+                        >Distancia</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="distancia"
+                        [(ngModel)]="selectedAssignment.distancia"
+                        placeholder="Ingrese la ubicacion"
+                        required
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="estado" class="form-label">Estado</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="estado"
+                        [(ngModel)]="selectedAssignment.estado"
+                        placeholder="Ingrese el estado"
+                        required
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary rounded-btn">
+                      Guardar
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
